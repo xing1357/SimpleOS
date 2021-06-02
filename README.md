@@ -1,5 +1,5 @@
 # SimpleOS
- Operating System Coded in Assembly and C
+ Operating System Coded in Assembly and C. Has a Virtual Filesystem, Simple Shell, GDT and IDT, and more. Planning to add a FAT filesystem, networking, and a GUI.
 
 ## Run
 To run the OS, you can download VM software.
