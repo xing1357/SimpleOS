@@ -5,7 +5,7 @@
 #include "drivers/keyboard/keyboard.h"
 #include "drivers/screen/screen.h"
 #include "utils.h"
-#include "fs/fs.h"
+#include "fs/vfs.h"
 
 void launch_shell(int n);
 

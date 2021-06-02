@@ -1,5 +1,5 @@
-#ifndef FS_H
-#define FS_H
+#ifndef VFS_H
+#define VFS_H
 
 #include "../types.h"
 

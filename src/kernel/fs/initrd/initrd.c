@@ -118,7 +118,7 @@ initialise_initrd (uint32 location)
           file_headers[counter].offset += location;
 
           /* Create a new file node. */
-          strcpy (root_nodes[counter].name, &file_headers[counter].name);
+          strcpy (root_nodes[counter].name, file_headers[counter].name);
 
           root_nodes[counter].mask = root_nodes[counter].uid = root_nodes[counter].gid = 0;
           

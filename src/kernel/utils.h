@@ -21,5 +21,6 @@ void mmap_address_set_free(uint32 address);
 void mmap_address_set_used(uint32 address);
 string strchr(const char* str, int c);
 char * strcpy (char *dest, const char *src);
+char * strncpy(char* dest, const char *src, size_t n);
 
 #endif

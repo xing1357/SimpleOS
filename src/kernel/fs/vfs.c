@@ -1,4 +1,4 @@
-#include "fs.h"
+#include "vfs.h"
 
 /* The root of the filesystem. */
 fs_node_t *fs_root = 0;

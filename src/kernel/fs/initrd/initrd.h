@@ -1,9 +1,9 @@
 #ifndef INITRD_H
 #define INITRD_H
 
-#include "../types.h"
-#include "fs.h"
-#include "../utils.h"
+#include "../../types.h"
+#include "../vfs.h"
+#include "../../utils.h"
 
 typedef struct
 {
