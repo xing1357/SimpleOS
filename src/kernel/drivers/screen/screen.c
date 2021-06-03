@@ -124,9 +124,10 @@ void terminal_scroll_up() {
 
 void clearScreen()
 {
-  clear_vga_buffer(&vga_buffer, g_fore_color, g_back_color);
-  cursor_pos = 0;
-  cursor_next_line_index = 1;
+  clearLine(0,sh-1);
+  cursorX = 0;
+  cursorY = 0;
+  updateCursor();
 }
 
 void print_char(char c)
@@ -222,3 +223,5 @@ void print_binary(uint32 num)
      print_char(bin_arr[i]);
   }
 }
+
+

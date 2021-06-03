@@ -17,6 +17,7 @@ void help()
 	print_string("cpuinfo: Information about the cpu\n");
 	print_string("echo: echo text into the terminal\n");
 	print_string("rand: Random Integer Between 1 and 100\n");
+	print_string("cls: Clear the Screen\n");
 }
 
 void about()
@@ -64,6 +65,9 @@ void launch_shell(int n)
 	    	string randint = int_to_string(rand(100));
 	    	print_string(randint);
 	    	print_string("\n");
+	    }
+	    else if(strcmp(ch, "cls")){
+	    	clearScreen();
 	    }
 	    else
 	    {

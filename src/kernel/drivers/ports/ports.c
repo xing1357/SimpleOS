@@ -12,8 +12,28 @@ void outb(uint16 port, uint8 data)
   asm volatile("outb %0, %1" : "=a"(data) : "d"(port));
 }
 
+uint16 inports(uint16 _port) {
+    uint16 rv;
+    asm volatile ("inw %1, %0" : "=a" (rv) : "dN" (_port));
+    return rv;
+}
 
-void wait_for_io(uint32 timer_count)
+void outports(uint16 _port, uint16 _data) {
+    asm volatile ("outw %1, %0" : : "dN" (_port), "a" (_data));
+}
+
+uint32 inportl(uint16 _port) {
+    uint32 rv;
+    asm volatile ("inl %%dx, %%eax" : "=a" (rv) : "dN" (_port));
+    return rv;
+}
+
+void outportl(uint16 _port, uint32 _data) {
+    asm volatile ("outl %%eax, %%dx" : : "dN" (_port), "a" (_data));
+}
+
+
+void wait_for_io(uint32 timer_count) 
 {
   while(1){
     asm volatile("nop");

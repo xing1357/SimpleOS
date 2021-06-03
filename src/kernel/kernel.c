@@ -7,6 +7,7 @@
 #include "fs/initrd/initrd.h"
 #include "multiboot.h"
 
+
 void find_files(){
 	int i = 0;
 	struct dirent *node = 0;
@@ -48,5 +49,4 @@ void kernel_entry(struct multiboot *mboot_ptr)
   	print_string("Welcome to SimpleOS!\nPlease enter a command\n");
   	print_string("Enter 'help' for commands\n");
   	launch_shell(0);
-
 }
