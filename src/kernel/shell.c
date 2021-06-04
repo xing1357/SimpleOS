@@ -18,6 +18,8 @@ void help()
 	print_string("echo: echo text into the terminal\n");
 	print_string("rand: Random Integer Between 1 and 100\n");
 	print_string("cls: Clear the Screen\n");
+	print_string("page: Test Paging\n");
+	print_string("panic: TRIGGER A KERNEL PANIC!!!\n");
 }
 
 void about()
@@ -69,9 +71,19 @@ void launch_shell(int n)
 	    else if(strcmp(ch, "cls")){
 	    	clearScreen();
 	    }
+	    else if(strcmp(ch, "page")){
+	    	print_string("\n");
+	    	page();
+	    }
+	    else if(strcmp(ch, "panic")){
+	    	panic();
+	    }
 	    else
 	    {
-           print_string("\nCommand not found\n\n");
+	       print_string("\n");
+	       print_string(ch);
+	       print_string(": ");
+		   print_string("Command not found\n\n");
 	    } 
 	} while (!strcmp(ch,"exit"));
 }

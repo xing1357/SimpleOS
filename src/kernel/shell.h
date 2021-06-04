@@ -6,6 +6,7 @@
 #include "drivers/screen/screen.h"
 #include "utils.h"
 #include "fs/vfs.h"
+#include "panic.h"
 
 void launch_shell(int n);
 

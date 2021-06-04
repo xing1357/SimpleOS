@@ -6,6 +6,8 @@
 #include "fs/vfs.h"
 #include "fs/initrd/initrd.h"
 #include "multiboot.h"
+#include "drivers/serial/serial.h"
+#include "drivers/pci/pci.h"
 
 
 void find_files(){
@@ -43,6 +45,10 @@ void kernel_entry(struct multiboot *mboot_ptr)
   	print_string("GDT Initialised\n");
   	init_idt();
   	print_string("IDT Initialised\n");
+  	serial_init();
+  	print_string("Serial Initialised\n");
+  	pci_init();
+  	print_string("PCI Initialised\n");
   	fs_root = initialise_initrd (initrd_location);
   	print_string("Loaded Initial RAMDISK\n");
   	find_files();

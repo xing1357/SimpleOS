@@ -221,3 +221,62 @@ char * strncpy(char* dest, const char *src, size_t n) {
     return dest;
 }
 
+uint32 free_mem_addr = 0x10000;
+
+uint32 kmalloc(uint32 size, int align, uint32 *phys_addr) {
+
+    if (align == 1 && (free_mem_addr & 0xFFFFF000)) {
+        free_mem_addr &= 0xFFFFF000;
+        free_mem_addr += 0x1000;
+    }
+
+    if (phys_addr) *phys_addr = free_mem_addr;
+
+    uint32 ret = free_mem_addr;
+    free_mem_addr += size; 
+    return ret;
+}
+
+
+void append(char s[], char n) {
+    int len = strlen(s);
+    s[len] = n;
+    s[len+1] = '\0';
+}
+
+void hex_to_ascii(int n, char str[]) {
+    append(str, '0');
+    append(str, 'x');
+    char zeros = 0;
+
+    int32 tmp;
+    int i;
+    for (i = 28; i > 0; i -= 4) {
+        tmp = (n >> i) & 0xF;
+        if (tmp == 0 && zeros == 0) continue;
+        zeros = 1;
+        if (tmp > 0xA) append(str, tmp - 0xA + 'a');
+        else append(str, tmp + '0');
+    }
+
+    tmp = n & 0xF;
+    if (tmp >= 0xA) append(str, tmp - 0xA + 'a');
+    else append(str, tmp + '0');
+}
+
+void page(){
+  uint32 phys_addr;
+  uint32 page = kmalloc(1000, 1, &phys_addr);
+  char page_str[16] = "";
+  hex_to_ascii(page, page_str);
+  char phys_str[16] = "";
+  hex_to_ascii(phys_addr, phys_str);
+  print_string("Page: ");
+  print_string(page_str);
+  print_string(", physical address: ");
+  print_string(phys_str);
+  print_string("\n");
+}
+
+
+

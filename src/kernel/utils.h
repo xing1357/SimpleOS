@@ -2,6 +2,7 @@
 #define UTILS_H
 
 #include "types.h"
+#include "drivers/screen/screen.h"
 
 uint32 strlen(const char* str);
 uint32 digit_count(int num);
@@ -22,5 +23,7 @@ void mmap_address_set_used(uint32 address);
 string strchr(const char* str, int c);
 char * strcpy (char *dest, const char *src);
 char * strncpy(char* dest, const char *src, size_t n);
-
+#define my_sizeof(type) (char *)(&type+1)-(char*)(&type)
+uint32 kmalloc(uint32 size, int align, uint32 *phys_addr);
+void page();
 #endif
