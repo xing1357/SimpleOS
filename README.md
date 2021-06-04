@@ -12,3 +12,6 @@ Reccomended:
 ## Source
 The source is in the `src` Folder
 
+## SimpleOS Documentation
+You can find the Documentation [here](https://xing1357.github.io/SimpleOS/)
+
