@@ -11,10 +11,14 @@ Next, you should be greeted by this screen:
 ![kernel](pictures/kernel.png)
 
 ## Shell Commands
-- `help`
-![help](pictures/help.png)
-
-- `cmd`
-![cmd](pictures/cmd.png)
+Type `help` for supported shell commands:
+![](pictures/help.png)
+![](pictures/cmd.png)
+![](pictures/cpuinfo.png)
+![](pictures/echo.png)
+![](pictures/datetime.png)
+![](pictures/page.png)
+![](pictures/panic.png)
+![](pictures/rand.png)
 
 
