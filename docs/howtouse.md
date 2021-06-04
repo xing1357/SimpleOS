@@ -1,5 +1,7 @@
 # How to use SimpleOS
 
+[home](index.md)
+
 ## Booting
 SimpleOS boots from Grub:
 ![Grub Boot](pictures/grub.png)
