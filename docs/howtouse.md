@@ -13,12 +13,19 @@ Next, you should be greeted by this screen:
 ## Shell Commands
 Type `help` for supported shell commands:
 ![](pictures/help.png)
+
 ![](pictures/cmd.png)
+
 ![](pictures/cpuinfo.png)
+
 ![](pictures/echo.png)
+
 ![](pictures/datetime.png)
+
 ![](pictures/page.png)
+
 ![](pictures/panic.png)
+
 ![](pictures/rand.png)
 
 
