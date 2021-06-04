@@ -11,11 +11,10 @@ Next, you should be greeted by this screen:
 ![kernel](pictures/kernel.png)
 
 ## Shell Commands
-### Help
+*`help`
 ![help](pictures/help.png)
-Lists Avalible Commands
 
-### cmd
+*`cmd`
 ![cmd](pictures/cmd.png)
 
 
