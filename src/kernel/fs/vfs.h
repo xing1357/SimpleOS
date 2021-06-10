@@ -51,6 +51,24 @@ typedef struct fs_node
 
 extern fs_node_t  *fs_root;     /* The root of the filesystem */
 
+struct vfs_dir;
+
+typedef struct __attribute__((packed)) vfs_file  {
+    char *name;
+    char *content;
+    uint32 size;
+    struct vfs_file *sibling;
+    struct vfs_dir* parent;
+} vfs_file_t;
+
+typedef struct __attribute__((packed)) vfs_dir {
+    char *name;
+    vfs_file_t *first_file;
+    struct vfs_dir *first_dir;
+    struct vfs_dir *sibling;
+    struct vfs_dir* parent;
+} vfs_dir_t;
+
 /* Standard read/write/open/close functions. Note that these are all suffixed with
  * _fs to distinguish them from the read/write/open/close which deal with the file
  * descriptors, not file nodes.
@@ -61,6 +79,10 @@ void   open_fs  (fs_node_t *node, uint8 read, uint8 write);
 void   close_fs (fs_node_t *node);
 struct dirent *readdir_fs (fs_node_t *node, uint32 index);
 fs_node_t *finddir_fs (fs_node_t *node, char *name);
+vfs_file_t *vfs_make_file(char *name);
+vfs_dir_t *vfs_make_dir(char *name);
+void vfs_add_file(vfs_file_t *add, vfs_dir_t *dir);
+void vfs_add_dir(vfs_dir_t *add, vfs_dir_t *dir);
 
 #endif
 

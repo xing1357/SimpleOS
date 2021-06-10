@@ -39,11 +39,35 @@ void itoa(int num, char *number)
   }
 }
 
+uint8* memory_index [MEMORY_INDEX_BASE_SIZE];
 
-void * malloc(int nbytes)
+void* malloc(uint32 size)
 {
-  char variable[nbytes];
-  return &variable;
+  uint32 i = 0;
+  while (true)
+  {
+    // search
+    while (memory_index[i] != MEMORY_EMPTY) { i += 2; }
+    uint8* last_page_end = memory_index[i - 1];
+    uint32 next_page_start_id = i;
+    while (memory_index[next_page_start_id] == MEMORY_EMPTY) { ++next_page_start_id; }
+    // verify
+    if (memory_index[next_page_start_id] - last_page_end > size)
+    {
+      if (i >= MEMORY_INDEX_BASE_SIZE)
+      {
+        panic("");
+      }
+      if (size + last_page_end + 1 >= KERNEL_MEMORY_OFFSET_END)
+      {
+        panic();
+      }
+      // allocate
+      memory_index[i] = last_page_end + 1;
+      memory_index[i + 1] = memory_index[i] + size;
+      return (void*) memory_index[i];
+    }
+  }
 }
 
 void memset(uint8 *dest, uint8 val, uint32 len) {
@@ -51,9 +75,9 @@ void memset(uint8 *dest, uint8 val, uint32 len) {
     for ( ; len != 0; len--) *temp++ = val;
 }
 
-void memcpy(char *source, char *dest, int nbytes) {
+void memcpy(char *source, char *dest, int nuint8s) {
     int i;
-    for (i = 0; i < nbytes; i++) {
+    for (i = 0; i < nuint8s; i++) {
         *(dest + i) = *(source + i);             
     }
 }
@@ -153,42 +177,6 @@ int rand(int RAND_MAX){
     return (unsigned int)(next/65536) % RAND_MAX+1; 
 }
 
-extern uint32 kernel_end;
-uint32 kernel_end_address = (uint32) &kernel_end;
-
-uint32 total_memory; // in KB
-
-uint32* frame_table;
-
-#define FRAME_SIZE 0x1000
-#define FRAME_COUNT      (total_memory / 4)
-#define FRAME_TABLE_SIZE (FRAME_COUNT / 32)
-
-void mmap_init(uint32 size) {
-  total_memory = size;
-  frame_table = malloc(FRAME_TABLE_SIZE);
-}
-
-void mmap_init_finalize() {
-  // TODO: make this more efficient
-  //memset(frame_table, 0xFF, (kernel_end_address / FRAME_SIZE) / 8);
-  uint32 i;
-
-  for (i = 0; i < kernel_end_address; i += FRAME_SIZE) {
-    mmap_address_set_used(i);
-  }
-}
-
-void mmap_address_set_free(uint32 address) {
-  frame_table[(address / FRAME_SIZE) / 32] &=
-    ~ (1 << ((address / FRAME_SIZE) % 32));
-}
-
-void mmap_address_set_used(uint32 address) {
-  frame_table[(address / FRAME_SIZE) / 32] |=
-    (1 << ((address / FRAME_SIZE) % 32));
-}
-
 string strchr(const char* str, int c) {
   while (*str != c) {
     if (*str == '\0') {
@@ -278,5 +266,15 @@ void page(){
   print_string("\n");
 }
 
+void kfree(void *ptr) {
+    mem_header_t *header = (mem_header_t *) (ptr - sizeof(mem_header_t));
+    header->flags |= 1; 
+}
+
+uint32 memlen(char *s) { // Just strlen() with a different name lol
+    uint32 i = 0;
+    while (s[i++]);
+    return i;
+}
 
 

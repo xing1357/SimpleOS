@@ -1,6 +1,37 @@
 #include "shell.h"
 #include "cpu/cpuid/cpuid.h"
 
+void rmfile(){
+	print_string("\nEnter File to Remove: ");
+	string filename = readStr();
+	file_remove(filename);
+	print_string("\nRemoved File: ");
+	print_string(filename);
+	print_string("\n");
+}
+
+void ls()
+{
+  char* name;
+  for (int i = 0; i < file_count(); ++i)
+  {
+    name = file_get(i);
+    if (name != FILE_NOT_FOUND)
+    {
+      print_string(name);
+      print_string("\n");
+    }
+  }
+}
+void mkfile(){
+	print_string("\nEnter Filename: ");
+	string filename = readStr();
+	file_make(filename);
+	print_string("\nCreated File: ");
+	print_string(filename);
+	print_string("\n");
+}
+
 void echo()
 {
 	print_string("\n");
@@ -20,6 +51,11 @@ void help()
 	print_string("cls: Clear the Screen\n");
 	print_string("page: Test Paging\n");
 	print_string("panic: TRIGGER A KERNEL PANIC!!!\n");
+	print_string("date: Print Dage\n");
+	print_string("time: Print Time\n");
+	print_string("ls: List the Files\n");
+	print_string("mkfile: Create a file\n");
+	print_string("rmfile: Remove a file\n");
 }
 
 void about()
@@ -34,7 +70,7 @@ void launch_shell(int n)
 	int counter = 0;
 	do
 	{
-		print_string("SimpleOS (");
+		print_string("User@SimpleOS (");
 		print_string(int_to_string(n));
 		print_string(")> ");
 		ch = readStr(); 
@@ -76,8 +112,36 @@ void launch_shell(int n)
 	    	page();
 	    }
 	    else if(strcmp(ch, "panic")){
-	    	panic();
+	    	panic("User");
 	    }
+	    else if(strcmp(ch, "date")){
+	    	rtc_date();
+	    }
+	    else if(strcmp(ch, "time")){
+	    	rtc_time();
+	    }
+		else if(strcmp(ch, "find")){
+			string file = readStr();
+			bool fileExists = file_exists(file);
+			if (fileExists == true){
+				print_string("\nFile Found\n");
+			}
+			else if(fileExists == false) {
+				print_string("\nFile not Found\n");
+			}
+		}
+		else if(strcmp(ch, "ls")){
+			print_string("\n");
+			ls();
+			print_string("\n");
+		}
+		else if(strcmp(ch,"mkfile")){
+			mkfile();
+			print_string("\n");
+		}
+		else if(strcmp(ch, "rmfile")){
+			rmfile();
+		}
 	    else
 	    {
 	       print_string("\n");

@@ -113,14 +113,6 @@ void print_new_line()
   next_line_index++;
 }
 
-void terminal_scroll_up() {
-  int i;
-  for (i = 0; i < (VGA_WIDTH * VGA_HEIGHT - 80); i++)
-    vga_buffer[i] = vga_buffer[i + 80];
-  for (i = 0; i < VGA_WIDTH; i++)
-    vga_buffer[(VGA_HEIGHT - 1) * VGA_WIDTH + i] = vga_entry(' ', WHITE, BLACK);
-
-}
 
 void clearScreen()
 {
@@ -152,6 +144,10 @@ void print_char(char c)
                 cursorX = 0;
                 cursorY++;
                 break;
+        case ('\t'):
+              cursorX = cursorX + 8;
+              break;  
+
         default:
                 vidmem [((cursorY * sw + cursorX))*sd] = c;
                 vidmem [((cursorY * sw + cursorX))*sd+1] = color;

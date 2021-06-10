@@ -7,6 +7,9 @@
 #include "utils.h"
 #include "fs/vfs.h"
 #include "panic.h"
+#include "drivers/rtc/rtc.h"
+#include "drivers/mouse/mouse.h"
+#include "fs/fs.h"
 
 void launch_shell(int n);
 

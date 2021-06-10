@@ -12,9 +12,10 @@ typedef char int8;
 typedef short int16;
 typedef int int32;
 
-typedef signed char			boolean;
-#define FALSE						((boolean)(0))
-#define TRUE						((boolean)(!FALSE))
+typedef enum {
+    false = 0,
+    true = 1
+} bool;
 
 
 typedef long ssize_t;

@@ -72,3 +72,53 @@ fs_node_t * finddir_fs (fs_node_t *node, char *name)
         return 0;
       }
 }
+
+vfs_dir_t *vfs_make_dir(char *name) {
+    vfs_dir_t *out = malloc(sizeof(vfs_dir_t));
+    out->name = malloc(memlen(name));
+    out->first_file = NULL;
+    out->first_dir = NULL;
+    out->sibling = NULL;
+    out->parent = NULL;
+    memcpy(out->name, name, memlen(name));
+    return out;
+}
+
+vfs_file_t *vfs_make_file(char *name) {
+    vfs_file_t *out = malloc(sizeof(vfs_file_t));
+    out->name = malloc(memlen(name) + 1);
+    out->sibling = NULL;
+    out->parent = NULL;
+    memcpy(out->name, name, memlen(name));
+    out->name[memlen(name)] = 0;
+    out->size = 0;
+    return out;
+}
+
+void vfs_add_file(vfs_file_t *add, vfs_dir_t *dir) {
+    if (dir->first_file == NULL) { 
+        dir->first_file = add;
+        add->parent = dir;
+        return;
+    }        
+    vfs_file_t *file = dir->first_file;
+    while (file->sibling != NULL) {
+        file = file->sibling;
+    }
+    file->sibling = add;
+    add->parent = dir;
+}
+
+void vfs_add_dir(vfs_dir_t *add, vfs_dir_t *dir) {
+    if (dir->first_dir == NULL) { 
+        dir->first_dir = add;
+        add->parent = dir;
+        return;
+    }        
+    vfs_dir_t *dir2 = dir->first_dir;
+    while (dir2->sibling != NULL) {
+        dir2 = dir2->sibling;
+    }
+    dir2->sibling = add;
+    add->parent = dir;
+}

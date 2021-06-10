@@ -223,7 +223,7 @@ void isr_handler(struct registers regs)
       isr_15_handler();
       break;
     default:
-      print_string("interrupt handler");
+      print_string("interrupt Handler");
       break;
   }
   current_regs = NULL;

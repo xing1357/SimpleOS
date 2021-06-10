@@ -18,6 +18,12 @@ uint16 inports(uint16 _port) {
     return rv;
 }
 
+uint16 inw (uint16 port) {
+    uint16 result;
+    __asm__("in %%dx, %%ax" : "=a" (result) : "d" (port));
+    return result;
+}
+
 void outports(uint16 _port, uint16 _data) {
     asm volatile ("outw %1, %0" : : "dN" (_port), "a" (_data));
 }
