@@ -12,6 +12,9 @@ Reccomended:
 ## Source
 The source is in the `src` Folder
 
+## Build
+Run `sh run.sh`. Then to run in qemu `qemu-system-x86_64 MyOS.iso`
+
 ## SimpleOS Documentation
 You can find the Documentation [here](https://xing1357.github.io/SimpleOS/)
 
