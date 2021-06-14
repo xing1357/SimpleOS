@@ -232,7 +232,5 @@ int file_writes(char* filename, char* text)
 void fsinit()
 {
   file_make("test");
-  file_make("test2");
-  file_remove("test");
-  file_writes("test2", "test\n");
+  file_make("history");
 }

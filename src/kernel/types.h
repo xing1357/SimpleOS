@@ -22,6 +22,8 @@ typedef long ssize_t;
 typedef unsigned long size_t;
 typedef long int off_t;
 
-typedef char* string; 
+typedef char* string;
+#define global_vec(name) \
+    typeof(name) name = { 0 }; 
 
 #endif
