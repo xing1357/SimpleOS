@@ -10,6 +10,7 @@
 #include "drivers/rtc/rtc.h"
 #include "drivers/mouse/mouse.h"
 #include "fs/fs.h"
+#include "drivers/acpi/acpi.c"
 
 void launch_shell(int n);
 

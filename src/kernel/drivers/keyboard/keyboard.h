@@ -5,5 +5,6 @@
 #include "../../types.h"
 
 string readStr();
+string textedit_readStr();
 
 #endif

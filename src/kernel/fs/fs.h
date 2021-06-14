@@ -20,8 +20,13 @@
 void fsinit();
 int file_remove(char* name);
 int file_make(char* name);
-char* file_get(int id);
+char* file_get_name(int id);
+int file_get_id(char* name);
 int file_count();
 bool file_exists(char* name);
 int file_size(char* name);
+int file_read(char* filename, char* output);
+int file_write(char* filename, char* data, uint32 depth);
+int file_writes(char* filename, char* text);
+int file_clean(char* filename);
 #endif

@@ -1,6 +1,25 @@
 #include "shell.h"
 #include "cpu/cpuid/cpuid.h"
 
+void read_file()
+{
+  // get the filename
+  print_string("\nEnter file name: ");
+  string filename = readStr();
+  // read it
+  char* content = (char*) malloc(file_size(filename));
+  int response = file_read(filename, content);
+  if (response == FILE_NOT_FOUND)
+  {
+    print_string("File not found\n");
+  }
+  print_string("\n");
+  print_string(content);
+  print_string("\n");
+  kfree(filename);
+  kfree(content);
+}
+
 void rmfile(){
 	print_string("\nEnter File to Remove: ");
 	string filename = readStr();
@@ -15,10 +34,13 @@ void ls()
   char* name;
   for (int i = 0; i < file_count(); ++i)
   {
-    name = file_get(i);
+    name = file_get_name(i);
     if (name != FILE_NOT_FOUND)
     {
       print_string(name);
+	  int size = file_size(name);
+	  print_string("\t");
+	  print_int(size);
       print_string("\n");
     }
   }
@@ -41,6 +63,17 @@ void echo()
 	print_string("\n");
 }
 
+void text_editor(){
+	print_string("\nEnter File To Create: ");
+	string filename = readStr();
+	file_make(filename);
+	clearScreen();
+	string input = textedit_readStr();
+	file_writes(filename, input);
+	clearScreen();
+
+}
+
 void help()
 {
 	print_string("\nAbout: About the OS\n");
@@ -56,6 +89,8 @@ void help()
 	print_string("ls: List the Files\n");
 	print_string("mkfile: Create a file\n");
 	print_string("rmfile: Remove a file\n");
+	print_string("textedit: Text Editor\n");
+	print_string("shutdown: Shutdown SimpleOS\n");
 }
 
 void about()
@@ -141,6 +176,15 @@ void launch_shell(int n)
 		}
 		else if(strcmp(ch, "rmfile")){
 			rmfile();
+		}
+		else if(strcmp(ch, "readfile")){
+			read_file();
+		}
+		else if(strcmp(ch, "textedit")){
+			text_editor();
+		}
+		else if(strcmp(ch, "shutdown")){
+			acpiPowerOff();
 		}
 	    else
 	    {

@@ -10,6 +10,7 @@
 #include "drivers/pci/pci.h"
 #include "drivers/mouse/mouse.h"
 #include "fs/fs.h"
+#include "drivers/acpi/acpi.h"
 
 
 void kernel_entry(struct multiboot *mboot_ptr)
@@ -24,6 +25,8 @@ void kernel_entry(struct multiboot *mboot_ptr)
   	print_string("Serial  Driver Initialised\n");
   	pci_init();
   	print_string("PCI Driver Initialised\n");
+	init_acpi();
+	print_string("Initialised ACPI\n");
 	fs_root = initialise_initrd(initrd_location);
 	if (!fs_root){
 		panic("RAMDISK error");
