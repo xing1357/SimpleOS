@@ -1,3 +1,8 @@
+/*
+Copyright 2021 Harvey Xing 
+Licensed under MIT ( https://github.com/xing1357/SimpleOS/blob/main/LICENSE )
+*/
+
 #include "gdt.h"
 
 struct GDT gdt_entries[3];

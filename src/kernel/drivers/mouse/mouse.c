@@ -1,3 +1,8 @@
+/*
+Copyright 2021 Harvey Xing 
+Licensed under MIT ( https://github.com/xing1357/SimpleOS/blob/main/LICENSE )
+*/
+
 #include "mouse.h"
 #include "../../pic.h"
 
@@ -136,8 +141,6 @@ void mouse_isr(register_t *r)
 		} else if (mouse_y >= (600 - 24)) {
 			mouse_y = 600 - 24;
 		}
-    cursorX = mouse_x;
-    cursorY = mouse_y;
 		if ((mouse_bytes[0] & 0x04) == 0) {
 			// print_string(LNG_MOUSE_MID);
 		}

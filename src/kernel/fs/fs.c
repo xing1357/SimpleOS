@@ -1,3 +1,8 @@
+/*
+Copyright 2021 Harvey Xing 
+Licensed under MIT ( https://github.com/xing1357/SimpleOS/blob/main/LICENSE )
+*/
+
 #include "fs.h"
 #include "../utils.h"
 
@@ -232,5 +237,4 @@ int file_writes(char* filename, char* text)
 void fsinit()
 {
   file_make("test");
-  file_make("history");
 }

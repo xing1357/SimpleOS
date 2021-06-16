@@ -1,3 +1,8 @@
+/*
+Copyright 2021 Harvey Xing 
+Licensed under MIT ( https://github.com/xing1357/SimpleOS/blob/main/LICENSE )
+*/
+
 #include "idt.h"
 #include "isr.h"
 

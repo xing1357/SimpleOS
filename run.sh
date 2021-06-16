@@ -28,8 +28,11 @@ gcc -m32 -c kernel/pic.c -o pic.o -std=gnu99 -ffreestanding -w
 gcc -m32 -c kernel/drivers/ata/ata.c -o ata.o -std=gnu99 -ffreestanding -w
 gcc -m32 -c kernel/fs/fs.c -o fs.o -std=gnu99 -ffreestanding 
 gcc -m32 -c kernel/drivers/acpi/acpi.c -o acpi.o -std=gnu99 -ffreestanding -w
+gcc -m32 -c kernel/math/math.c -o math.o -std=gnu99 -ffreestanding -w
+gcc -m32 -c kernel/apps/textedit/textedit.c -o textedit.o -std=gnu99 -ffreestanding -w
+gcc -m32 -c kernel/apps/calculator/calculator.c -o calculator.o -std=gnu99 -ffreestanding -w
 
-ld -m elf_i386 -T boot/linker.ld kernel.o screen.o utils.o keyboard.o ports.o shell.o cpuid.o load_idt.o gdt.o idt.o isr.o vfs.o initrd.o serial.o panic.o pci.o rtc.o mouse.o pic.o ata.o fs.o acpi.o boot.o load_gdt.o -o MyOS.bin -nostdlib --allow-multiple-definition
+ld -m elf_i386 -T boot/linker.ld kernel.o screen.o utils.o keyboard.o ports.o shell.o cpuid.o load_idt.o gdt.o idt.o isr.o vfs.o initrd.o serial.o panic.o pci.o rtc.o mouse.o pic.o ata.o fs.o acpi.o textedit.o math.o calculator.o boot.o load_gdt.o -o MyOS.bin -nostdlib --allow-multiple-definition
 
 #check MyOS.bin file is x86 multiboot file or not
 grub-file --is-x86-multiboot MyOS.bin
@@ -37,7 +40,6 @@ grub-file --is-x86-multiboot MyOS.bin
 #building the iso file
 mkdir -p isodir/boot/grub
 cp MyOS.bin isodir/boot/MyOS.bin
-cp initrd.img isodir/boot/initrd.img
 cp boot/grub.cfg isodir/boot/grub/grub.cfg
 grub-mkrescue -o MyOS.iso isodir
 

@@ -1,5 +1,12 @@
+/*
+Copyright 2021 Harvey Xing 
+Licensed under MIT ( https://github.com/xing1357/SimpleOS/blob/main/LICENSE )
+*/
+
 #include "shell.h"
 #include "cpu/cpuid/cpuid.h"
+#include "apps/textedit/textedit.h"
+#include "apps/calculator/calculator.h"
 
 void read_file()
 {
@@ -18,6 +25,20 @@ void read_file()
   print_string("\n");
   kfree(filename);
   kfree(content);
+}
+
+void run(){
+	print_string("\nEnter App to Run: ");
+	string app = readStr();
+	if(strcmp(app, "textedit")){
+		text_editor();
+	}
+	else if(strcmp(app, "calc")){
+		calculator();
+	}
+	else {
+		print_string("\nApp Not Found\n");
+	}
 }
 
 void rmfile(){
@@ -63,16 +84,6 @@ void echo()
 	print_string("\n");
 }
 
-void text_editor(){
-	print_string("\nEnter File To Create: ");
-	string filename = readStr();
-	file_make(filename);
-	clearScreen();
-	string input = textedit_readStr();
-	file_writes(filename, input);
-	clearScreen();
-
-}
 
 void help()
 {
@@ -89,7 +100,7 @@ void help()
 	print_string("ls: List the Files\n");
 	print_string("mkfile: Create a file\n");
 	print_string("rmfile: Remove a file\n");
-	print_string("textedit: Text Editor\n");
+	print_string("run: SimpleOS Applauncher\n");
 	print_string("shutdown: Shutdown SimpleOS\n");
 }
 
@@ -180,8 +191,8 @@ void launch_shell(int n)
 		else if(strcmp(ch, "readfile")){
 			read_file();
 		}
-		else if(strcmp(ch, "textedit")){
-			text_editor();
+		else if(strcmp(ch, "run")){
+			run();
 		}
 		else if(strcmp(ch, "shutdown")){
 			acpiPowerOff();

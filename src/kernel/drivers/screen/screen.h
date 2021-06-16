@@ -1,3 +1,8 @@
+/*
+Copyright 2021 Harvey Xing 
+Licensed under MIT ( https://github.com/xing1357/SimpleOS/blob/main/LICENSE )
+*/
+
 #ifndef SCREEN_H
 #define SCREEN_H
 
@@ -5,7 +10,7 @@
 #include "../../utils.h"
 #include "../ports/ports.h"
 
-#define VGA_ADDRESS 0xB8000
+#define VGA_ADDRESS 0xb8000
 #define BUFSIZE 2200
 
 uint16* vga_buffer;

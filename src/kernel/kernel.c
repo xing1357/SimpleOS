@@ -1,3 +1,8 @@
+/*
+Copyright 2021 Harvey Xing 
+Licensed under MIT ( https://github.com/xing1357/SimpleOS/blob/main/LICENSE )
+*/
+
 #include "drivers/screen/screen.h"
 #include "drivers/keyboard/keyboard.h"
 #include "shell.h"
@@ -35,9 +40,11 @@ void kernel_entry(struct multiboot *mboot_ptr)
 		print_string("Loaded Initial RAMDISK\n");
 	}
 	fsinit();
+	print_string("Initialised the Filesystem\n");
   	mouse_init();
   	print_string("Initialised Mouse Driver\n");
   	print_string("Welcome to SimpleOS!\nPlease enter a command\n");
   	print_string("Enter 'help' for commands\n");
   	launch_shell(0);
 }
+
