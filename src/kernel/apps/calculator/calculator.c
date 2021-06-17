@@ -22,6 +22,20 @@ int getsecondNumber(){
     return numb2;
 }
 
+void runAgain() {
+    print_string("Would you like to use Calculator Again?\n");
+    print_string("No. 0\nYes. 1\n");
+    string result = readStr();
+
+    if (strcmp(result, "0")) {
+        return;
+    } else if (strcmp(result, "1")) {
+        calculator();
+    } else {
+        return;
+    }
+}
+
 void calculator(){
     clearScreen();
     print_string("Calculator\n");
@@ -72,4 +86,6 @@ void calculator(){
         print_int(ans);
         print_string("\n");
     }
+
+    runAgain();
 }

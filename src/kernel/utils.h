@@ -41,4 +41,5 @@ uint32 kmalloc(uint32 size, int align, uint32 *phys_addr);
 void page();
 void kfree(void *ptr);
 uint32 memlen(char *s);
+char* strcat(char* destination, const char* source);
 #endif
