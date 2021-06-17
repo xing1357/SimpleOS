@@ -7,6 +7,8 @@ Licensed under MIT ( https://github.com/xing1357/SimpleOS/blob/main/LICENSE )
 #include "cpu/cpuid/cpuid.h"
 #include "apps/textedit/textedit.h"
 #include "apps/calculator/calculator.h"
+#include "apps/serialapp/serialapp.h"
+#include "apps/slang/slang.h"
 
 void read_file()
 {
@@ -35,6 +37,12 @@ void run(){
 	}
 	else if(strcmp(app, "calc")){
 		calculator();
+	}
+	else if(strcmp(app, "serialapp")){
+		serial_port_app();
+	}
+	else if(strcmp(app, "slang")){
+		slang_app();
 	}
 	else {
 		print_string("\nApp Not Found\n");

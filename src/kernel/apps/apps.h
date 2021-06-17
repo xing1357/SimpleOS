@@ -11,5 +11,6 @@ Licensed under MIT ( https://github.com/xing1357/SimpleOS/blob/main/LICENSE )
 #include "../types.h"
 #include "../math/math.h"
 #include "../drivers/keyboard/keyboard.h"
+#include "../utils.h"
 
 #endif
