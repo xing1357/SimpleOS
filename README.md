@@ -1,3 +1,5 @@
+# Sorry, I won't be updating in a while because of some problems with git. As soon as that is fixed I will commit. I am still working on this, so don't worry.
+
 # SimpleOS
  Operating System Coded in Assembly and C. Has a Virtual Filesystem, Simple Shell, GDT and IDT, and more. Planning to add networking functionalities and a GUI.
 
