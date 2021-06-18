@@ -43,7 +43,8 @@ grub-file --is-x86-multiboot MyOS.bin
 mkdir -p isodir/boot/grub
 cp MyOS.bin isodir/boot/MyOS.bin
 cp boot/grub.cfg isodir/boot/grub/grub.cfg
-grub-mkrescue -o MyOS.iso isodir
+grub-mkrescue -o iso/MyOS.iso isodir
 
 rm -rf isodir
 rm -rf *.o
+rm -rf *.bin

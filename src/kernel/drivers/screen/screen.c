@@ -46,6 +46,15 @@ void clear_vga_buffer(uint16 **buffer, uint8 fore_color, uint8 back_color)
   vga_index = 0;
 }
 
+void enable_cursor(uint8 cursor_start, uint8 cursor_end)
+{
+	outb(0x3D4, 0x0A);
+	outb(0x3D5, (inb(0x3D5) & 0xC0) | cursor_start);
+ 
+	outb(0x3D4, 0x0B);
+	outb(0x3D5, (inb(0x3D5) & 0xE0) | cursor_end);
+}
+
 
 void init_vga(uint8 fore_color, uint8 back_color)
 {
@@ -53,6 +62,7 @@ void init_vga(uint8 fore_color, uint8 back_color)
   clear_vga_buffer(&vga_buffer, fore_color, back_color);
   g_fore_color = fore_color;
   g_back_color = back_color;
+  enable_cursor(0,15);
 }
 
 void clearLine(uint8 from,uint8 to)
