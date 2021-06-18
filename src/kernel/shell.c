@@ -124,7 +124,10 @@ void launch_shell(int n)
 	int counter = 0;
 	do
 	{
-		print_string("User@SimpleOS (");
+		char* username = (char*) malloc(file_size("username"));
+		int response = file_read("username", username);
+		print_string(username);
+		print_string("@SimpleOS (");
 		print_string(int_to_string(n));
 		print_string(")> ");
 		ch = readStr(); 

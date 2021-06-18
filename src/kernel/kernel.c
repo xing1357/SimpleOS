@@ -16,7 +16,7 @@ Licensed under MIT ( https://github.com/xing1357/SimpleOS/blob/main/LICENSE )
 #include "drivers/mouse/mouse.h"
 #include "fs/fs.h"
 #include "drivers/acpi/acpi.h"
-
+#include "fs/tar.h"
 
 void kernel_entry(struct multiboot *mboot_ptr)
 {
@@ -39,12 +39,27 @@ void kernel_entry(struct multiboot *mboot_ptr)
 	else {
 		print_string("Loaded Initial RAMDISK\n");
 	}
+	int tarfound = parse(initrd_location);
+	print_string("\nFiles Found in RAMDISK: ");
+	print_int(tarfound);
+	print_string("\n");
 	fsinit();
 	print_string("Initialised the Filesystem\n");
   	mouse_init();
   	print_string("Initialised Mouse Driver\n");
-  	print_string("Welcome to SimpleOS!\nPlease enter a command\n");
-  	print_string("Enter 'help' for commands\n");
-  	launch_shell(0);
+	print_string("\nSimpleOS Setup\n");
+	print_string("Enter A Username: ");
+	bool setup_done = file_exists("username");
+	if(setup_done == true){
+		launch_shell(0);
+	}
+	else {
+		string username = readStr();
+		file_make("username");
+		file_writes("username", username);
+ 		print_string("\nWelcome to SimpleOS!\nPlease enter a command\n");
+  		print_string("Enter 'help' for commands\n");
+  		launch_shell(0);
+	}
 }
 
