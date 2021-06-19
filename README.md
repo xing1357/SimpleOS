@@ -1,5 +1,8 @@
 # SimpleOS
- Operating System Coded in Assembly and C. Has a Virtual Filesystem, Simple Shell, GDT and IDT, and more. Planning to add networking functionalities and a GUI.
+A simple DOS like OS made in Assembly and C. 
+
+## Build
+Run `sh run.sh`. 
 
 ## Run
 To run the OS, you can download VM software.
@@ -9,11 +12,14 @@ Reccomended:
 - [VMware](https://my.vmware.com/web/vmware/downloads/info/slug/desktop_end_user_computing/vmware_fusion/12_0)
 - [QEMU](https://www.qemu.org)
 
+### Running with VMWARE/Virtualbox
+To run with this, simply insert the iso image, and make sure to chose the `other` option.
+
+### Running with qemu
+Run with `qemu-system-x86_64 iso/MyOS.iso`.
+
 ## Source
 The source is in the `src` Folder
-
-## Build
-Run `sh run.sh`. Then to run in qemu `qemu-system-x86_64 MyOS.iso`
 
 ## Website
 Website coming up soon! Keep tuned!
