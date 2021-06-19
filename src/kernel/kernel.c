@@ -17,6 +17,7 @@ Licensed under MIT ( https://github.com/xing1357/SimpleOS/blob/main/LICENSE )
 #include "fs/fs.h"
 #include "drivers/acpi/acpi.h"
 #include "fs/tar.h"
+#include "printf.h"
 
 void kernel_entry(struct multiboot *mboot_ptr)
 {
@@ -47,6 +48,7 @@ void kernel_entry(struct multiboot *mboot_ptr)
 	print_string("Initialised the Filesystem\n");
   	mouse_init();
   	print_string("Initialised Mouse Driver\n");
+	printf("%s","Printf() Test\n");
 	print_string("\nSimpleOS Setup\n");
 	print_string("Enter A Username: ");
 	bool setup_done = file_exists("username");

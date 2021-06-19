@@ -34,8 +34,9 @@ gcc -m32 -c kernel/apps/calculator/calculator.c -o calculator.o -std=gnu99 -ffre
 gcc -m32 -c kernel/apps/serialapp/serialapp.c -o serialapp.o -std=gnu99 -ffreestanding -w
 gcc -m32 -c kernel/apps/slang/slang.c -o slang.o -std=gnu99 -ffreestanding -w
 gcc -m32 -c kernel/fs/tar.c -o tar.o -std=gnu99 -ffreestanding -w
+gcc -m32 -c kernel/printf.c -o printf.o -std=gnu99 -ffreestanding -w
 
-ld -m elf_i386 -T boot/linker.ld kernel.o screen.o utils.o keyboard.o ports.o shell.o cpuid.o load_idt.o gdt.o idt.o isr.o vfs.o initrd.o serial.o panic.o pci.o rtc.o mouse.o pic.o ata.o fs.o acpi.o textedit.o math.o calculator.o serialapp.o slang.o tar.o boot.o load_gdt.o -o MyOS.bin -nostdlib --allow-multiple-definition
+ld -m elf_i386 -T boot/linker.ld kernel.o screen.o utils.o keyboard.o ports.o shell.o cpuid.o load_idt.o gdt.o idt.o isr.o vfs.o initrd.o serial.o panic.o pci.o rtc.o mouse.o pic.o ata.o fs.o acpi.o textedit.o math.o calculator.o serialapp.o slang.o tar.o printf.o boot.o load_gdt.o -o MyOS.bin -nostdlib --allow-multiple-definition
 
 #check MyOS.bin file is x86 multiboot file or not
 grub-file --is-x86-multiboot MyOS.bin

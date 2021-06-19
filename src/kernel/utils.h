@@ -42,4 +42,5 @@ void page();
 void kfree(void *ptr);
 uint32 memlen(char *s);
 char* strcat(char* destination, const char* source);
+void bzero(void *b, size_t len);
 #endif

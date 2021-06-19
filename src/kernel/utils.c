@@ -299,4 +299,10 @@ char* strcat(char* destination, const char* source)
     return destination;
 }
 
+void bzero(void *b, size_t len)
+{
+
+	(void)memset(b, 0, len);
+}
+
 
