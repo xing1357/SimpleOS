@@ -45,7 +45,7 @@ void run(){
 		slang_app();
 	}
 	else {
-		print_string("\nApp Not Found\n");
+		print_string("\nApp Not Found\nAvailable Applications:\n1. textedit\n2. calc\n3. serialapp\n4. slang");
 	}
 }
 
