@@ -157,6 +157,7 @@ void launch_shell(int n)
 	    else if(strcmp(ch, "rand"))
 	    {
 	    	print_string("\n");
+			srand(_timestamp_eax()); // Our Source of Entropy for the rand() function
 	    	string randint = int_to_string(rand(100));
 	    	print_string(randint);
 	    	print_string("\n");

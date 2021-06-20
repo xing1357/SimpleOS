@@ -33,6 +33,7 @@ void int_to_ascii(int n, char str[]);
 uint8 strcmp(string ch1,string ch2);
 int memcmp(void *s1, void *s2, int len);
 int rand(int RAND_MAX);
+void srand(unsigned int seed);
 string strchr(const char* str, int c);
 char * strcpy (char *dest, const char *src);
 char * strncpy(char* dest, const char *src, size_t n);

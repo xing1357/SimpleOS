@@ -42,3 +42,15 @@ hltLoop:
 
 .size _start, . - _start
 
+.global _timestamp_edx
+.global _timestamp_eax
+
+_timestamp_edx: 
+    rdtsc
+    movl %edx,%eax
+    ret
+
+_timestamp_eax: 
+    rdtsc
+    ret
+

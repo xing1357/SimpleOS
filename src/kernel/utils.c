@@ -177,9 +177,16 @@ int memcmp(void *s1, void *s2, int len)
 
 unsigned long next = 1;
 
+extern uint32 _timestamp_edx();
+extern uint32 _timestamp_eax();
+
 int rand(int RAND_MAX){
     next = next * 1103515245 + 12345;
     return (unsigned int)(next/65536) % RAND_MAX+1; 
+}
+
+void srand(unsigned int seed){
+    next = seed;
 }
 
 string strchr(const char* str, int c) {
