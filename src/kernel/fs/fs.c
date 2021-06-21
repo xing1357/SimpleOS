@@ -186,7 +186,6 @@ int file_write(char* filename, char* data, uint32 depth)
   if (!file_exists(filename)) return FILE_NOT_FOUND;
   File* fp = find_file(filename);
   Sector* fs = fp->first_sector;
-
   char* end = depth + data;
   while (data < end)
   {

@@ -25,6 +25,7 @@ void kernel_entry(struct multiboot *mboot_ptr)
   	init_vga(WHITE, BLACK);
   	init_gdt();
   	print_string("GDT Initialised\n");
+	beep();
   	init_idt();
   	print_string("IDT Initialised\n");
   	serial_init();
