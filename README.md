@@ -25,5 +25,5 @@ The source is in the `src` Folder
 Website coming up soon! Keep tuned!
 
 ## Community
-![Discord Server]https://discord.gg/ymMAcmVV
+https://discord.gg/ymMAcmVV
 
