@@ -50,19 +50,44 @@ void kernel_entry(struct multiboot *mboot_ptr)
   	mouse_init();
   	print_string("Initialised Mouse Driver\n");
 	printf("%s","Printf() Test\n");
-	print_string("\nSimpleOS Setup\n");
-	print_string("Enter A Username: ");
-	bool setup_done = file_exists("username");
+	bool setup_done = file_exists("setupdone");
 	if(setup_done == true){
 		launch_shell(0);
 	}
 	else {
-		string username = readStr();
-		file_make("username");
-		file_writes("username", username);
- 		print_string("\nWelcome to SimpleOS!\nPlease enter a command\n");
-  		print_string("Enter 'help' for commands\n");
-  		launch_shell(0);
+		while(true){
+			print_string("\nSimpleOS Setup\n");
+			print_string("Enter A Username: ");
+			string username_setup = readStr();
+			file_make("username");
+			file_writes("username", username_setup);
+			file_make("password"); // Im not Very Worried about the permissions yet, but ill implement that later.
+			print_string("\nEnter a password for user: ");
+			string password_setup = readStr();
+			file_writes("password", password_setup);
+			file_make("setupdone");
+
+			main:
+				print_string("\nLogin");
+				print_string("\nUsername: ");
+				string uname = readStr();
+				char* username = (char*) malloc(file_size("username"));
+				int response = file_read("username", username);
+				if(strcmp(uname, username)){
+					print_string("\nWelcome to SimpleOS!\nPlease enter a command\n");
+					print_string("Enter 'help' for commands\n");
+					launch_shell(0);
+				}
+				else if(strcmp(uname, "root")){ // Agian, not sure about permissions, but I will do something with the root user later.
+					print_string("\nWelcome to SimpleOS!\nPlease enter a command\n");
+					print_string("Enter 'help' for commands\n");
+					launch_shell_root(0);
+				}
+				else {
+					print_string("\nIncorrect Login Credentials");
+					goto main;
+				}
+		}
 	}
 }
 

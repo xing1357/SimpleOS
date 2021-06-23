@@ -219,5 +219,103 @@ void launch_shell(int n)
 	} while (!strcmp(ch,"exit"));
 }
 
+void launch_shell_root(int n)
+{
+	string ch = (string) malloc(200); 
+	int counter = 0; 
+	do
+	{
+		print_string("root@SimpleOS (");
+		print_string(int_to_string(n));
+		print_string(")> ");
+		ch = readStr(); 
+	    if(strcmp(ch,"cmd"))
+	    {
+            print_string("\nYou are allready in cmd. A new shell will be opened\n");
+			launch_shell(n+1);
+	    }
+
+	    else if(strcmp(ch,"help"))
+	    {
+    		help();
+	    }
+
+	    else if(strcmp(ch,"echo"))
+	    {
+    		echo();
+	    }
+	    else if(strcmp(ch,"cpuinfo"))
+	    {
+	    	cpuid_test();
+	    }
+	    else if(strcmp(ch, "about"))
+	    {
+	    	about();
+	    }
+	    else if(strcmp(ch, "rand"))
+	    {
+	    	print_string("\n");
+			srand(_timestamp_eax()); // Our Source of Entropy for the rand() function
+	    	string randint = int_to_string(rand(100));
+	    	print_string(randint);
+	    	print_string("\n");
+	    }
+	    else if(strcmp(ch, "cls")){
+	    	clearScreen();
+	    }
+	    else if(strcmp(ch, "page")){
+	    	print_string("\n");
+	    	page();
+	    }
+	    else if(strcmp(ch, "panic")){
+	    	panic("User");
+	    }
+	    else if(strcmp(ch, "date")){
+	    	rtc_date();
+	    }
+	    else if(strcmp(ch, "time")){
+	    	rtc_time();
+	    }
+		else if(strcmp(ch, "find")){
+			string file = readStr();
+			bool fileExists = file_exists(file);
+			if (fileExists == true){
+				print_string("\nFile Found\n");
+			}
+			else if(fileExists == false) {
+				print_string("\nFile not Found\n");
+			}
+		}
+		else if(strcmp(ch, "ls")){
+			print_string("\n");
+			ls();
+			print_string("\n");
+		}
+		else if(strcmp(ch,"mkfile")){
+			mkfile();
+			print_string("\n");
+		}
+		else if(strcmp(ch, "rmfile")){
+			rmfile();
+		}
+		else if(strcmp(ch, "readfile")){
+			read_file();
+		}
+		else if(strcmp(ch, "run")){
+			run();
+		}
+		else if(strcmp(ch, "shutdown")){
+			acpiPowerOff();
+		}
+	    else
+	    {
+	       print_string("\n");
+	       print_string(ch);
+	       print_string(": ");
+		   print_string("Command not found\n\n");
+	    } 
+	} while (!strcmp(ch,"exit"));
+}
+
 
 

@@ -18,5 +18,6 @@ Licensed under MIT ( https://github.com/xing1357/SimpleOS/blob/main/LICENSE )
 #include "drivers/acpi/acpi.c"
 
 void launch_shell(int n);
+void launch_shell_root(int n);
 
 #endif

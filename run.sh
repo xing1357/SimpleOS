@@ -2,9 +2,6 @@
 as --32 boot/boot.s -o boot.o
 as --32 kernel/gdt/load_gdt.s -o load_gdt.o
 as --32 kernel/idt/load_idt.s -o load_idt.o
-#as --32 kernel/idt/load_idt.s -o load_idt.o
-
-
 
 #compile kernel.c file
 gcc -m32 -c kernel/kernel.c -o kernel.o -std=gnu99 -ffreestanding -w
