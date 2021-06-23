@@ -24,3 +24,6 @@ The source is in the `src` Folder
 ## Website
 Website coming up soon! Keep tuned!
 
+## Community
+https://discord.gg/ymMAcmVV
+
