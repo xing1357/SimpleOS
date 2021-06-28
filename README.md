@@ -27,3 +27,6 @@ Website coming up soon! Keep tuned!
 ## Community
 https://discord.gg/ymMAcmVV
 
+# Edit
+I am taking a break from OSdev, and working on some arduino projects (If you are intrested please DM me on discord) . I will return soon hopefully though! A rough guess would be in 3/4 months or so. 
+
