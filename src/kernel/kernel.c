@@ -18,6 +18,8 @@ Licensed under MIT ( https://github.com/xing1357/SimpleOS/blob/main/LICENSE )
 #include "drivers/acpi/acpi.h"
 #include "fs/tar.h"
 #include "printf.h"
+#include "font.h"
+#include "drivers/timer/timer.h"
 
 void kernel_entry(struct multiboot *mboot_ptr)
 {
@@ -64,7 +66,7 @@ void kernel_entry(struct multiboot *mboot_ptr)
 			file_make("password"); // Im not Very Worried about the permissions yet, but ill implement that later.
 			print_string("\nEnter a password for user: ");
 			string password_setup = readStr();
-			file_writes("password", password_setup);
+			file_writes("password", password_setup); 
 			file_make("setupdone");
 
 			main:
@@ -74,14 +76,32 @@ void kernel_entry(struct multiboot *mboot_ptr)
 				char* username = (char*) malloc(file_size("username"));
 				int response = file_read("username", username);
 				if(strcmp(uname, username)){
-					print_string("\nWelcome to SimpleOS!\nPlease enter a command\n");
-					print_string("Enter 'help' for commands\n");
-					launch_shell(0);
+					print_string("\nPassword: ");
+					string passwd = readStr();
+					char* password = (char*) malloc(file_size("password"));
+					int response = file_read("password", password);
+					if(strcmp(passwd, password)){
+						print_string("\nWelcome to SimpleOS!\nPlease enter a command\n");
+						print_string("Enter 'help' for commands\n");
+						launch_shell(0);
+					}
+					else {
+						goto main;
+					}
 				}
 				else if(strcmp(uname, "root")){ // Agian, not sure about permissions, but I will do something with the root user later.
-					print_string("\nWelcome to SimpleOS!\nPlease enter a command\n");
-					print_string("Enter 'help' for commands\n");
-					launch_shell_root(0);
+					print_string("\nPassword: ");
+					string passwd = readStr();
+					char* password = (char*) malloc(file_size("password"));
+					int response = file_read("password", password);
+					if(strcmp(passwd, password)){
+						print_string("\nWelcome to SimpleOS!\nPlease enter a command\n");
+						print_string("Enter 'help' for commands\n");
+						launch_shell_root(0);
+					}
+					else {
+						goto main;
+					}
 				}
 				else {
 					print_string("\nIncorrect Login Credentials");

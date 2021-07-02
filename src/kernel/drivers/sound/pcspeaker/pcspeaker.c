@@ -33,4 +33,6 @@ static void play_sound(uint32 nFrequence) {
  //Make a beep
  void beep() {
  	 play_sound(1000);
+     timer_sleep(10);
+	 stop_sound();
  }
