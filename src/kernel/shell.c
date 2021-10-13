@@ -32,21 +32,29 @@ void read_file()
 void run(){
 	print_string("\nEnter App to Run: ");
 	string app = readStr();
-	if(strcmp(app, "textedit")){
+    if (findapp(app) == 1) {
+        print_string("\nApp Not Found\nAvailable Applications:\n1. textedit\n2. calc\n3. serialapp\n4. slang\n");
+    }
+}
+
+int findapp(string str) { 
+    int value = 0;
+    if(strcmp(str, "textedit")){
 		text_editor();
 	}
-	else if(strcmp(app, "calc")){
+	else if(strcmp(str, "calc")){
 		calculator();
 	}
-	else if(strcmp(app, "serialapp")){
+	else if(strcmp(str, "serialapp")){
 		serial_port_app();
 	}
-	else if(strcmp(app, "slang")){
+	else if(strcmp(str, "slang")){
 		slang_app();
 	}
-	else {
-		print_string("\nApp Not Found\nAvailable Applications:\n1. textedit\n2. calc\n3. serialapp\n4. slang");
-	}
+    else {
+        value = 1;
+    }
+    return value;
 }
 
 void rmfile(){
@@ -95,10 +103,12 @@ void echo()
 
 void help()
 {
-	print_string("\nAbout: About the OS\n");
+	print_string("\n\nabout: About the OS\n");
 	print_string("cmd: open a new shell\n");
 	print_string("cpuinfo: Information about the cpu\n");
+    print_string("dir: Also Lists the Files\n");
 	print_string("echo: echo text into the terminal\n");
+	print_string("exit: exits the terminal\n");
 	print_string("rand: Random Integer Between 1 and 100\n");
 	print_string("cls: Clear the Screen\n");
 	print_string("page: Test Paging\n");
@@ -109,7 +119,7 @@ void help()
 	print_string("mkfile: Create a file\n");
 	print_string("rmfile: Remove a file\n");
 	print_string("run: SimpleOS Applauncher\n");
-	print_string("shutdown: Shutdown SimpleOS\n");
+	print_string("shutdown: Shutdown SimpleOS\n\n");
 }
 
 void about()
@@ -133,7 +143,7 @@ void launch_shell(int n)
 		ch = readStr(); 
 	    if(strcmp(ch,"cmd"))
 	    {
-            print_string("\nYou are allready in cmd. A new shell will be opened\n");
+            print_string("\nYou are already in cmd. A new shell will be opened\n");
 			launch_shell(n+1);
 	    }
 
@@ -189,6 +199,11 @@ void launch_shell(int n)
 			}
 		}
 		else if(strcmp(ch, "ls")){
+			print_string("\n");
+			ls();
+			print_string("\n");
+		}
+        else if(strcmp(ch, "dir")){
 			print_string("\n");
 			ls();
 			print_string("\n");
@@ -209,12 +224,13 @@ void launch_shell(int n)
 		else if(strcmp(ch, "shutdown")){
 			acpiPowerOff();
 		}
-	    else
-	    {
-	       print_string("\n");
-	       print_string(ch);
-	       print_string(": ");
-		   print_string("Command not found\n\n");
+        else {
+            if (findapp(ch) == 1) {
+                print_string("\n");
+                print_string(ch);
+                print_string(": ");
+                print_string("Command not found\n\n");
+            }
 	    } 
 	} while (!strcmp(ch,"exit"));
 }
@@ -231,7 +247,7 @@ void launch_shell_root(int n)
 		ch = readStr(); 
 	    if(strcmp(ch,"cmd"))
 	    {
-            print_string("\nYou are allready in cmd. A new shell will be opened\n");
+            print_string("\nYou are already in cmd. A new shell will be opened\n");
 			launch_shell(n+1);
 	    }
 
@@ -291,6 +307,11 @@ void launch_shell_root(int n)
 			ls();
 			print_string("\n");
 		}
+		else if(strcmp(ch, "dir")){
+			print_string("\n");
+			ls();
+			print_string("\n");
+		}        
 		else if(strcmp(ch,"mkfile")){
 			mkfile();
 			print_string("\n");
