@@ -28,5 +28,5 @@ Website coming up soon! Keep tuned!
 https://discord.gg/ymMAcmVV
 
 # Edit
-Im still here lol, just that im making the project structure kinda like xv6 cause im lazy.
+Working on the FileSystem, got a disk read/write driver working. Looking for smth like ext2.
 
