@@ -23,14 +23,14 @@ The source is in the `src` Folder
 
 ## Goals
 Not nessecarily in order
-- [] Own Bootloader
+- [ ] Own Bootloader
 - [x] Filesystem
-  - [] ext2
+  - [ ] ext2
     - [x] Read Superblock
-    - [] Read Files
-    - [] Write 
-  - [] Fat32
-- [] GUI
+    - [ ] Read Files
+    - [ ] Write 
+  - [ ] Fat32
+- [ ] GUI
 
 ## Community
 https://discord.gg/ymMAcmVV
