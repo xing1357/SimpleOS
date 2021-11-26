@@ -27,6 +27,9 @@ Website coming up soon! Keep tuned!
 ## Community
 https://discord.gg/ymMAcmVV
 
+<<<<<<< Updated upstream
 # Edit
 Working on the FileSystem, got a disk read/write driver working. Looking for smth like ext2.
 
+=======
+>>>>>>> Stashed changes
