@@ -21,15 +21,18 @@ Run with `qemu-system-x86_64 iso/MyOS.iso`.
 ## Source
 The source is in the `src` Folder
 
-## Website
-Website coming up soon! Keep tuned!
+## Goals
+Not nessecarily in order
+- [ ] Own Bootloader
+- [x] Filesystem
+  - [ ] ext2
+    - [x] Read Superblock
+    - [ ] Read Files
+    - [ ] Write 
+  - [ ] Fat32
+- [ ] GUI
 
 ## Community
 https://discord.gg/ymMAcmVV
 
-<<<<<<< Updated upstream
-# Edit
-Working on the FileSystem, got a disk read/write driver working. Looking for smth like ext2.
 
-=======
->>>>>>> Stashed changes
