@@ -11,6 +11,15 @@ section .multiboot
     dd MAGIC
     dd FLAGS
     dd CHECKSUM
+    dd    000000000h
+   	dd    000000000h
+    dd    000000000h
+    dd    000000000h
+    dd    000000000h
+    dd    0
+    dd    1024
+    dd    768
+    dd 32
 
 section .data
     align 4096
