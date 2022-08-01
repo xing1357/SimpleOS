@@ -21,6 +21,10 @@ MKDIR= mkdir -p
 CP = cp -f
 DEFINES=
 
+# qemu
+QEMU= qemu-system-i386
+QEMU_FLAGS= -cdrom out/SimpleOS.iso -drive file=ext2.img,format=raw
+
 # assembler flags
 ASM_FLAGS = -f elf32
 # compiler flags
@@ -36,7 +40,7 @@ TARGET_ISO=$(OUT)/SimpleOS.iso
 ISO_DIR=$(OUT)/isodir
 
 OBJECTS=$(ASM_OBJ)/entry.o $(ASM_OBJ)/load_gdt.o\
-		$(ASM_OBJ)/load_idt.o $(ASM_OBJ)/exception.o $(ASM_OBJ)/irq.o\
+		$(ASM_OBJ)/load_idt.o $(ASM_OBJ)/exception.o $(ASM_OBJ)/irq.o $(ASM_OBJ)/load_tss.o\
 		$(OBJ)/io_ports.o $(OBJ)/vga.o\
 		$(OBJ)/string.o $(OBJ)/console.o\
 		$(OBJ)/gdt.o $(OBJ)/idt.o $(OBJ)/isr.o $(OBJ)/8259_pic.o\
@@ -44,8 +48,11 @@ OBJECTS=$(ASM_OBJ)/entry.o $(ASM_OBJ)/load_gdt.o\
 		$(OBJ)/kernel.o\
 		$(OBJ)/gui.o\
 		$(OBJ)/hd.o\
-		$(OBJ)/ext2.o
-
+		$(OBJ)/ext2.o\
+		$(OBJ)/ide.o\
+		$(OBJ)/tss.o\
+		$(OBJ)/kheap.o\
+		$(OBJ)/pmm.o
 
 all: $(OBJECTS)
 	@printf "[ linking... ]\n"
@@ -82,6 +89,11 @@ $(ASM_OBJ)/exception.o : $(ASM_SRC)/exception.asm
 $(ASM_OBJ)/irq.o : $(ASM_SRC)/irq.asm
 	@printf "[ $(ASM_SRC)/irq.asm ]\n"
 	$(ASM) $(ASM_FLAGS) $(ASM_SRC)/irq.asm -o $(ASM_OBJ)/irq.o
+	@printf "\n"
+
+$(ASM_OBJ)/load_tss.o : $(ASM_SRC)/load_tss.asm
+	@printf "[ $(ASM_SRC)/irq.asm ]\n"
+	$(ASM) $(ASM_FLAGS) $(ASM_SRC)/load_tss.asm -o $(ASM_OBJ)/load_tss.o
 	@printf "\n"
 
 $(OBJ)/io_ports.o : $(SRC)/io_ports.c
@@ -154,7 +166,28 @@ $(OBJ)/ext2.o : $(SRC)/ext2.c
 	$(CC) $(CC_FLAGS) -c $(SRC)/ext2.c -o $(OBJ)/ext2.o
 	@printf "\n"
 
+$(OBJ)/ide.o : $(SRC)/ide.c
+	@printf "[ $(SRC)/ide.c ]\n"
+	$(CC) $(CC_FLAGS) -c $(SRC)/ide.c -o $(OBJ)/ide.o
+	@printf "\n"
 
+$(OBJ)/tss.o : $(SRC)/tss.c
+	@printf "[ $(SRC)/tss.c ]\n"
+	$(CC) $(CC_FLAGS) -c $(SRC)/tss.c -o $(OBJ)/tss.o
+	@printf "\n"
+
+$(OBJ)/kheap.o : $(SRC)/kheap.c
+	@printf "[ $(SRC)/kheap.c ]\n"
+	$(CC) $(CC_FLAGS) -c $(SRC)/kheap.c -o $(OBJ)/kheap.o
+	@printf "\n"
+
+$(OBJ)/pmm.o : $(SRC)/pmm.c
+	@printf "[ $(SRC)/pmm.c ]\n"
+	$(CC) $(CC_FLAGS) -c $(SRC)/pmm.c -o $(OBJ)/pmm.o
+	@printf "\n"
+
+run:
+	$(QEMU) $(QEMU_FLAGS)
 
 clean:
 	rm -f $(OBJ)/*.o

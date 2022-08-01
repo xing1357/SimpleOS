@@ -63,6 +63,16 @@ typedef struct ext2_inode
     unsigned char os_specific[12];
 } ext2_inode;
 
+typedef struct ext2_dirent
+{
+	uint32 inode;
+	uint32 dirent_size;
+	uint32 name_len;
+	uint32 prev_name_len;
+	uint32 type;
+	char* name;
+} ext2_dirent;
+
 ext2_superblock sb;
 ext2_bgdt bgdt;
 

@@ -2,6 +2,9 @@
 #define STRING_H
 
 #include "types.h"
+#include "multiboot.h"
+
+uint32 digit_count(int num, int base);
 
 void kfree(void* memory);
 

@@ -5,6 +5,17 @@
 #define MEMORY_INDEX_BASE_SIZE 10000
 uint8* memory_index [MEMORY_INDEX_BASE_SIZE];
 
+uint32 digit_count(int num, int base)
+{
+  uint32 count = 0;
+  if(num == 0)
+    return 1;
+  while(num > 0){
+    count++;
+    num = num/base;
+  }
+  return count;
+}
 
 void kfree(void* memory)
 {

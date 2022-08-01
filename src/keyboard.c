@@ -94,6 +94,14 @@ void keyboard_handler(REGISTERS *r) {
                 g_shift_pressed = TRUE;
                 break;
 
+            case SCAN_CODE_KEY_UP:
+            	console_scroll(SCROLL_UP);
+            	break;
+
+            case SCAN_CODE_KEY_DOWN:
+            	console_scroll(SCROLL_DOWN);
+            	break;
+
             default:
                 g_ch = g_scan_code_chars[scancode];
                 // if caps in on, covert to upper

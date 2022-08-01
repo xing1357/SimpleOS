@@ -15,6 +15,38 @@ extern uint8 __kernel_rodata_section_end;
 extern uint8 __kernel_bss_section_start;
 extern uint8 __kernel_bss_section_end;
 
-#endif
 
+typedef struct {
+    struct {
+        uint32 k_start_addr;
+        uint32 k_end_addr;
+        uint32 k_len;
+        uint32 text_start_addr;
+        uint32 text_end_addr;
+        uint32 text_len;
+        uint32 data_start_addr;
+        uint32 data_end_addr;
+        uint32 data_len;
+        uint32 rodata_start_addr;
+        uint32 rodata_end_addr;
+        uint32 rodata_len;
+        uint32 bss_start_addr;
+        uint32 bss_end_addr;
+        uint32 bss_len;
+    } kernel;
+
+    struct {
+        uint32 total_memory;
+    } system;
+
+    struct {
+        uint32 start_addr;
+        uint32 end_addr;
+        uint32 size;
+    } available;
+} KERNEL_MEMORY_MAP;
+
+extern KERNEL_MEMORY_MAP g_kmap;
+
+#endif
 
