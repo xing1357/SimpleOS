@@ -21,18 +21,7 @@ Run with `qemu-system-x86_64 iso/MyOS.iso`.
 ## Source
 The source is in the `src` Folder
 
-## Goals
-Not nessecarily in order
-- [ ] Own Bootloader
-- [x] Filesystem
-  - [ ] ext2
-    - [x] Read Superblock
-    - [ ] Read Files
-    - [ ] Write 
-  - [ ] Fat32
-- [ ] GUI
-
 ## Community
-https://discord.gg/ymMAcmVV
+https://discord.gg/YXcXs5FNwu
 
 
