@@ -40,19 +40,21 @@ TARGET_ISO=$(OUT)/SimpleOS.iso
 ISO_DIR=$(OUT)/isodir
 
 OBJECTS=$(ASM_OBJ)/entry.o $(ASM_OBJ)/load_gdt.o\
-		$(ASM_OBJ)/load_idt.o $(ASM_OBJ)/exception.o $(ASM_OBJ)/irq.o $(ASM_OBJ)/load_tss.o\
+		$(ASM_OBJ)/load_idt.o $(ASM_OBJ)/exception.o $(ASM_OBJ)/irq.o $(ASM_OBJ)/load_tss.o $(ASM_OBJ)/bios32_call.o\
 		$(OBJ)/io_ports.o $(OBJ)/vga.o\
 		$(OBJ)/string.o $(OBJ)/console.o\
 		$(OBJ)/gdt.o $(OBJ)/idt.o $(OBJ)/isr.o $(OBJ)/8259_pic.o\
 		$(OBJ)/keyboard.o $(OBJ)/mouse.o\
 		$(OBJ)/kernel.o\
 		$(OBJ)/gui.o\
-		$(OBJ)/hd.o\
 		$(OBJ)/ext2.o\
 		$(OBJ)/ide.o\
 		$(OBJ)/tss.o\
 		$(OBJ)/kheap.o\
-		$(OBJ)/pmm.o
+		$(OBJ)/pmm.o\
+		$(OBJ)/bios32.o\
+		$(OBJ)/vesa.o\
+		$(OBJ)/bitmap.o		
 
 all: $(OBJECTS)
 	@printf "[ linking... ]\n"
@@ -94,6 +96,11 @@ $(ASM_OBJ)/irq.o : $(ASM_SRC)/irq.asm
 $(ASM_OBJ)/load_tss.o : $(ASM_SRC)/load_tss.asm
 	@printf "[ $(ASM_SRC)/irq.asm ]\n"
 	$(ASM) $(ASM_FLAGS) $(ASM_SRC)/load_tss.asm -o $(ASM_OBJ)/load_tss.o
+	@printf "\n"
+
+$(ASM_OBJ)/bios32_call.o : $(ASM_SRC)/bios32_call.asm
+	@printf "[ $(ASM_SRC)/bios32_call.asm ]\n"
+	$(ASM) $(ASM_FLAGS) $(ASM_SRC)/bios32_call.asm -o $(ASM_OBJ)/bios32_call.o
 	@printf "\n"
 
 $(OBJ)/io_ports.o : $(SRC)/io_ports.c
@@ -156,11 +163,6 @@ $(OBJ)/gui.o : $(SRC)/gui.c
 	$(CC) $(CC_FLAGS) -c $(SRC)/gui.c -o $(OBJ)/gui.o
 	@printf "\n"
 
-$(OBJ)/hd.o : $(SRC)/hd.c
-	@printf "[ $(SRC)/hd.c ]\n"
-	$(CC) $(CC_FLAGS) -c $(SRC)/hd.c -o $(OBJ)/hd.o
-	@printf "\n"
-
 $(OBJ)/ext2.o : $(SRC)/ext2.c
 	@printf "[ $(SRC)/ext2.c ]\n"
 	$(CC) $(CC_FLAGS) -c $(SRC)/ext2.c -o $(OBJ)/ext2.o
@@ -184,6 +186,21 @@ $(OBJ)/kheap.o : $(SRC)/kheap.c
 $(OBJ)/pmm.o : $(SRC)/pmm.c
 	@printf "[ $(SRC)/pmm.c ]\n"
 	$(CC) $(CC_FLAGS) -c $(SRC)/pmm.c -o $(OBJ)/pmm.o
+	@printf "\n"
+
+$(OBJ)/bios32.o : $(SRC)/bios32.c
+	@printf "[ $(SRC)/bios32.c ]\n"
+	$(CC) $(CC_FLAGS) -c $(SRC)/bios32.c -o $(OBJ)/bios32.o
+	@printf "\n"
+
+$(OBJ)/vesa.o : $(SRC)/vesa.c
+	@printf "[ $(SRC)/vesa.c ]\n"
+	$(CC) $(CC_FLAGS) -c $(SRC)/vesa.c -o $(OBJ)/vesa.o
+	@printf "\n"
+
+$(OBJ)/bitmap.o : $(SRC)/bitmap.c
+	@printf "[ $(SRC)/bitmap.c ]\n"
+	$(CC) $(CC_FLAGS) -c $(SRC)/bitmap.c -o $(OBJ)/bitmap.o
 	@printf "\n"
 
 run:

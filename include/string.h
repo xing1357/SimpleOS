@@ -24,6 +24,10 @@ int strcpy(char *dst, const char *src);
 
 void strcat(char *dest, const char *src);
 
+void strncat(char *dest, const char *src, int n);
+
+uint32 strsplit(char* str, char delim);
+
 int isspace(char c);
 
 int isalpha(char c);

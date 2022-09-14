@@ -26,7 +26,7 @@ static void set_tss_entry(int index, uint16 ss0, uint32 esp0) {
     g_tss.gs = 0x13;
     g_tss.iomap_base = sizeof(TSS);
 }
-
+/*@TODO why doesn't this let me init IDT?*/
 void tss_init() {
     set_tss_entry(5, 0x10, 0x0100000);
     load_tss();

@@ -9,7 +9,7 @@
 
 static BOOL g_caps_lock = FALSE;
 static BOOL g_shift_pressed = FALSE;
-char g_ch = 0;
+char g_ch = 0, g_scan_code = 0;
 
 // see scan codes defined in keyboard.h for index
 char g_scan_code_chars[128] = {
@@ -140,6 +140,16 @@ char kb_getchar() {
     c = g_ch;
     g_ch = 0;
     return c;
+}
+
+char kb_get_scancode() {
+    char code;
+
+    while(g_scan_code <= 0);
+    code = g_scan_code;
+    g_ch = 0;
+    g_scan_code = 0;
+    return code;
 }
 
 

@@ -1,5 +1,6 @@
 #include "string.h"
 #include "types.h"
+#include "console.h"
 
 
 #define MEMORY_INDEX_BASE_SIZE 10000
@@ -17,12 +18,22 @@ uint32 digit_count(int num, int base)
   return count;
 }
 
-void kfree(void* memory)
+uint32 strsplit(char* str, char delim)
 {
-  uint32 id = 0;
-  while (memory_index[id] != memory) { id += 2; }
-  memory_index[id] = 0x0;
-  memory_index[id + 1] = 0x0;
+	uint32 n = 0;
+	uint32 i = 0;
+	while(str[i])
+	{
+		if(str[i] == delim)
+		{
+			printf(".");
+			str[i] = 0;
+			n++;
+		}
+		i++;
+	}
+	n++;
+	return n;
 }
 
 void *memset(void *dst, char c, uint32 n) {
@@ -88,6 +99,13 @@ void strcat(char *dest, const char *src) {
     char *end = (char *)dest + strlen(dest);
     memcpy((void *)end, (void *)src, strlen(src));
     end = end + strlen(src);
+    *end = '\0';
+}
+
+void strncat(char *dest, const char *src, int n) {
+    char *end = (char *)dest + strlen(dest);
+    memcpy((void *)end, (void *)src, n);
+    end = end + n;
     *end = '\0';
 }
 

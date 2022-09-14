@@ -12,6 +12,8 @@
 #define INODE_TYPE_SYMB_LINK 0xA000
 #define INODE_TYPE_UNIX_SOCKET 0xC000
 
+//Should move these defs into a new header file later, but putting this here for now
+#define FILE_NOT_FOUND 0
 
 typedef struct ext2_superblock {
     uint32 inode_num;
@@ -52,7 +54,7 @@ typedef struct ext2_inode
     unsigned int sector_usage;
     unsigned int flags;
     unsigned int OS_type;
-    uint32 direct_block_pointers[11];
+    uint32 direct_block_pointers[12];
     unsigned int singly_indirect_block_pointer;
     unsigned int doubly_indirect_block_pointer;
     unsigned int triply_indirect_block_pointer;
@@ -68,7 +70,6 @@ typedef struct ext2_dirent
 	uint32 inode;
 	uint32 dirent_size;
 	uint32 name_len;
-	uint32 prev_name_len;
 	uint32 type;
 	char* name;
 } ext2_dirent;
@@ -77,5 +78,8 @@ ext2_superblock sb;
 ext2_bgdt bgdt;
 
 void read_superblock();
-void dump_fs_info();
+void ext2_init();
+char* ext2_read_file(char* fpath);
+char** ext2_ls(uint32 inode_num);
+uint32 ext2_path_to_inode(char* path);
 #endif

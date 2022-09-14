@@ -100,5 +100,6 @@ void keyboard_init();
 
 // a blocking character read
 char kb_getchar();
+char kb_get_scancode();
 
 #endif
