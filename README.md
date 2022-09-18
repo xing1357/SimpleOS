@@ -2,7 +2,7 @@
 A simple DOS like OS made in Assembly and C. 
 
 ## Build
-Run `sh run.sh`. 
+Run with `make all`. 
 
 ## Run
 To run the OS, you can download VM software.
@@ -16,7 +16,7 @@ Reccomended:
 To run with this, simply insert the iso image, and make sure to chose the `other` option.
 
 ### Running with qemu
-Run with `qemu-system-x86_64 iso/MyOS.iso`.
+Run with `make run`.
 
 ## Source
 The source is in the `src` Folder
