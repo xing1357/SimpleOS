@@ -14,6 +14,7 @@
 #include "kheap.h"
 #include "vesa.h"
 #include "bitmap.h"
+#include "panic.h"
 
 //@TODO fix the tss loading from restarting machine
 
@@ -133,10 +134,10 @@ void kmain(unsigned long magic, unsigned long addr) {
     mouse_init();
     */
     ata_init();
-    //read superblock
-    read_superblock();
     // Dump ext2 fs info
+    read_superblock();
     ext2_init();
+    /*
     while(1) {
         printf(shell);
         printf(cwd);
@@ -159,7 +160,6 @@ void kmain(unsigned long magic, unsigned long addr) {
             dir = buffer + 3;
             strncat(dir, "/", 1);
             strcat(cwd, dir);
-            printf("PWD:%s\n", pwd);
         }
         else if(is_cat(buffer)){
             char *filedata = malloc(sizeof(*filedata));
@@ -184,6 +184,8 @@ void kmain(unsigned long magic, unsigned long addr) {
             printf("Command not found: %s\n", buffer);
         }
     }
+    */
+   panic("End of Kernel!");
 }
 
 

@@ -2,6 +2,8 @@
 #define EXT2_H
 #include "types.h"
 
+#define EXT2_SUPER 1
+
 #define INODE_SIZE 256 //Hardcoded here cause im lazy @TODO read the actual superblock field dummy
 
 #define INODE_TYPE_FIFO 1
@@ -16,33 +18,46 @@
 #define FILE_NOT_FOUND 0
 
 typedef struct ext2_superblock {
-    uint32 inode_num;
-    uint32 block_num;
-    uint32 reserved_blocks;
-    uint32 unalloc_blocks;
-    uint32 unalloc_inodes;
-    uint32 sb_block_num;
-    uint32 block_size;
-    uint32 fragment_size;
-    uint32 blocks_per_group;
-    uint32 fragments_per_group;
-    uint32 inodes_per_group;
+    uint32 inodes_count;			// Total # of inodes
+	uint32 blocks_count;			// Total # of blocks
+	uint32 r_blocks_count;		// # of reserved blocks for superuser
+	uint32 free_blocks_count;	
+	uint32 free_inodes_count;
+	uint32 first_data_block;
+	uint32 log_block_size;		// 1024 << Log2 block size  = block size
+	uint32 log_frag_size;
+	uint32 blocks_per_group;
+	uint32 frags_per_group;
+	uint32 inodes_per_group;
+	uint32 mtime;					// Last mount time, in POSIX time
+	uint32 wtime;					// Last write time, in POSIX time
+	uint16 mnt_count;				// # of mounts since last check
+	uint16 max_mnt_count;			// # of mounts before fsck must be done
+	uint16 magic;					// 0xEF53
+	uint16 state;
+	uint16 errors;
+	uint16 minor_rev_level;
+	uint32 lastcheck;
+	uint32 checkinterval;
+	uint32 creator_os;
+	uint32 rev_level;
+	uint16 def_resuid;
+	uint16 def_resgid;
 }ext2_superblock;
 
 typedef struct ext2_bgdt {
     uint32 blk_bmap;
     uint32 inode_bmap;
     uint32 inode_table_start;
-    uint32 unalloc_blocks;
-    uint32 unalloc_inodes;
-    uint32 num_of_dirs;
+    uint16 unalloc_blocks;
+    uint16 unalloc_inodes;
+    uint16 num_of_dirs;
+    uint16 pad[7];
 }ext2_bgdt;
 
 typedef struct ext2_inode
 {
     unsigned short type_perm;
-    uint32 type;
-    uint32 perm;
     unsigned short user_id;
     unsigned int size_low;
     unsigned int last_access_time;
@@ -74,8 +89,7 @@ typedef struct ext2_dirent
 	char* name;
 } ext2_dirent;
 
-ext2_superblock sb;
-ext2_bgdt bgdt;
+ext2_superblock* sb;
 
 void read_superblock();
 void ext2_init();

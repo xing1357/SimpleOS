@@ -23,7 +23,7 @@ DEFINES=
 
 # qemu
 QEMU= qemu-system-i386
-QEMU_FLAGS= -cdrom out/SimpleOS.iso -drive file=ext2.img,format=raw
+QEMU_FLAGS= -m 64 -cdrom out/SimpleOS.iso -drive file=ext2.img,format=raw
 
 # assembler flags
 ASM_FLAGS = -f elf32
@@ -54,7 +54,8 @@ OBJECTS=$(ASM_OBJ)/entry.o $(ASM_OBJ)/load_gdt.o\
 		$(OBJ)/pmm.o\
 		$(OBJ)/bios32.o\
 		$(OBJ)/vesa.o\
-		$(OBJ)/bitmap.o		
+		$(OBJ)/bitmap.o\
+		$(OBJ)/panic.o\
 
 all: $(OBJECTS)
 	@printf "[ linking... ]\n"
@@ -203,9 +204,14 @@ $(OBJ)/bitmap.o : $(SRC)/bitmap.c
 	$(CC) $(CC_FLAGS) -c $(SRC)/bitmap.c -o $(OBJ)/bitmap.o
 	@printf "\n"
 
+$(OBJ)/panic.o : $(SRC)/panic.c
+	@printf "[ $(SRC)/panic.c ]\n"
+	$(CC) $(CC_FLAGS) -c $(SRC)/panic.c -o $(OBJ)/panic.o
+	@printf "\n"
+
 run:
 	$(QEMU) $(QEMU_FLAGS)
 
 clean:
 	rm -f $(OBJ)/*.o
-	rm -f $(ASM_OBJ)/*.o
+	rm -f $(ASM_OBJ)/*
