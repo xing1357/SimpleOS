@@ -83,17 +83,17 @@ typedef struct ext2_inode
 typedef struct ext2_dirent
 {
 	uint32 inode;
-	uint32 dirent_size;
-	uint32 name_len;
-	uint32 type;
-	char* name;
+	uint16 dirent_size;
+	uint16 name_len;
+	uint8 type;
+	uint8* name;
 } ext2_dirent;
 
 ext2_superblock* sb;
 
-void read_superblock();
+ext2_superblock* read_superblock();
 void ext2_init();
 char* ext2_read_file(char* fpath);
-char** ext2_ls(uint32 inode_num);
+int ext2_ls(uint32 inode_num);
 uint32 ext2_path_to_inode(char* path);
 #endif

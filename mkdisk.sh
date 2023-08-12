@@ -1,14 +1,14 @@
 #!/bin/bash
 printf "Creating Disk...\n"
-dd if=/dev/zero of=ext2.img bs=1024 count=10000 > /dev/zero
-mkfs -t ext2 -i 1024 -b 1024 -F ext2.img > /dev/zero
+dd if=/dev/zero of=fat32.img bs=1024 count=8192 > /dev/zero
+mkfs.fat -F 32 fat32.img 
 printf "Mounting...\n"
-rm -rf /mnt/ext2
-mkdir /mnt/ext2
-mount ext2.img /mnt/ext2
+rm -rf /mnt/fat32
+mkdir /mnt/fat32
+mount fat32.img /mnt/fat32
 printf "MOUNTED!\n"
-cp -r rootfs/* /mnt/ext2
-umount ext2.img
+cp -r rootfs/* /mnt/fat32
+umount fat32.img
 printf "Done!\n"
 
 

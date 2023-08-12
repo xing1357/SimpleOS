@@ -505,7 +505,8 @@ int ide_write_sectors(uint8 drive, uint8 num_sectors, uint32 lba, uint32 buffer)
     else if (((lba + num_sectors) > g_ide_devices[drive].size) && (g_ide_devices[drive].type == IDE_ATA)) {
         printf("IDE ERROR: LBA address(0x%x) is greater than the available drive sectors(0x%x)\n", lba, g_ide_devices[drive].size);
         return -2;
-    } else {
+    }
+    else {
         uint8 err;
         if (g_ide_devices[drive].type == IDE_ATA)
             err = ide_ata_access(ATA_WRITE, drive, lba, num_sectors, buffer);

@@ -23,12 +23,12 @@ DEFINES=
 
 # qemu
 QEMU= qemu-system-i386
-QEMU_FLAGS= -m 64 -cdrom out/SimpleOS.iso -drive file=ext2.img,format=raw
+QEMU_FLAGS=  -boot d -cdrom out/SimpleOS.iso -drive file=fat32.img,format=raw
 
 # assembler flags
 ASM_FLAGS = -f elf32
 # compiler flags
-CC_FLAGS = $(INCLUDE) $(DEFINES) -m32 -std=gnu99 -ffreestanding -Wall -Wextra
+CC_FLAGS = $(INCLUDE) $(DEFINES) -m32 -std=gnu99 -ffreestanding -Wall -Wextra 
 # linker flags, for linker add linker.ld file too
 LD_FLAGS = -m elf_i386 -T $(CONFIG)/linker.ld -nostdlib --allow-multiple-definition
 
@@ -56,6 +56,9 @@ OBJECTS=$(ASM_OBJ)/entry.o $(ASM_OBJ)/load_gdt.o\
 		$(OBJ)/vesa.o\
 		$(OBJ)/bitmap.o\
 		$(OBJ)/panic.o\
+		$(OBJ)/fat32.o\
+
+
 
 all: $(OBJECTS)
 	@printf "[ linking... ]\n"
@@ -207,6 +210,11 @@ $(OBJ)/bitmap.o : $(SRC)/bitmap.c
 $(OBJ)/panic.o : $(SRC)/panic.c
 	@printf "[ $(SRC)/panic.c ]\n"
 	$(CC) $(CC_FLAGS) -c $(SRC)/panic.c -o $(OBJ)/panic.o
+	@printf "\n"
+
+$(OBJ)/fat32.o : $(SRC)/fat32.c
+	@printf "[ $(SRC)/fat32.c ]\n"
+	$(CC) $(CC_FLAGS) -c $(SRC)/fat32.c -o $(OBJ)/fat32.o
 	@printf "\n"
 
 run:

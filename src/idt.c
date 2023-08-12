@@ -26,7 +26,6 @@ void idt_init() {
     g_idt_ptr.base_address = (uint32)g_idt;
     g_idt_ptr.limit = sizeof(g_idt) - 1;
     pic8259_init();
-
     idt_set_entry(0, (uint32)exception_0, 0x08, 0x8E);
     idt_set_entry(1, (uint32)exception_1, 0x08, 0x8E);
     idt_set_entry(2, (uint32)exception_2, 0x08, 0x8E);

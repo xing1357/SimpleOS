@@ -15,6 +15,7 @@
 #include "vesa.h"
 #include "bitmap.h"
 #include "panic.h"
+#include "fat32.h"
 
 //@TODO fix the tss loading from restarting machine
 
@@ -98,11 +99,6 @@ BOOL is_cat(char *b) {
 
 void kmain(unsigned long magic, unsigned long addr) {
     MULTIBOOT_INFO *mboot_info;
-    char buffer[255];
-    char *shell = "User@SimpleOS ";
-    char *cwd = malloc(sizeof(*cwd)); //Current working directory, in it's path
-    cwd = "/";
-    char *pwd = "/"; //Previous working directory absolute path
     gdt_init();
     idt_init();
     console_init(COLOR_WHITE, COLOR_BLACK);
@@ -115,78 +111,15 @@ void kmain(unsigned long magic, unsigned long addr) {
         return;
     }
     // put the memory bitmap at the start of the available memory
-    printf("Init PMM... ");
     pmm_init(g_kmap.available.start_addr, g_kmap.available.size);
 	pmm_init_region(g_kmap.available.start_addr, PMM_BLOCK_SIZE * 256);
 
     // initialize heap 20 blocks(81920 bytes)
     void *start = pmm_alloc_blocks(20);
     void *end = start + (pmm_next_free_frame(1) * PMM_BLOCK_SIZE);
-	printf("[DONE]\n");
-	printf("Init kheap... ");
     kheap_init(start, end);
-    printf("[DONE]\n");
     keyboard_init();
-    //Disabled for Now
-    /*
-    int ret = vesa_init(1024, 768, 32);
-    bitmap_draw_string("HELLO WORLD", 150, 100, VBE_RGB(255, 255, 255));
-    mouse_init();
-    */
     ata_init();
-    // Dump ext2 fs info
-    read_superblock();
-    ext2_init();
-    /*
-    while(1) {
-        printf(shell);
-        printf(cwd);
-        printf(" >");
-        memset(buffer, 0, sizeof(buffer));
-        getstr_bound(buffer, strlen(shell));
-        if (strlen(buffer) == 0)
-            continue;
-        if(strcmp(buffer, "help") == 0) {
-            printf("SimpleOS Terminal\n");
-            printf("Commands: help, ls, cd, cat\n");
-        }
-        else if(strcmp(buffer, "ls") == 0){
-            uint32 ino = ext2_path_to_inode(cwd);
-            char **names = ext2_ls(ino);
-            printf("\n");
-        }
-        else if(is_cd(buffer)){
-            char* dir = malloc(sizeof(*dir));
-            dir = buffer + 3;
-            strncat(dir, "/", 1);
-            strcat(cwd, dir);
-        }
-        else if(is_cat(buffer)){
-            char *filedata = malloc(sizeof(*filedata));
-            char *filepath = malloc(sizeof(*filepath));
-            filepath = malloc(strlen(buffer + 4) + 1);
-            filepath = buffer + 4;
-            if(filepath[0] == '/'){ // Is it an absolute path?
-                filedata = ext2_read_file(filepath);
-                printf("\n%s", filedata);
-            }
-            else { //No, its a relative path
-                char *absolute = kcalloc(255, 1);
-                memcpy(absolute, cwd, strlen(cwd));
-                strcat(absolute, filepath);
-                printf("\nAbsolute: %s", absolute);
-                filedata = ext2_read_file(absolute);
-                printf("\n%s", filedata);
-                cwd = pwd;
-            }
-        }
-        else {
-            printf("Command not found: %s\n", buffer);
-        }
-    }
-    */
-   panic("End of Kernel!");
+    fat_init();
+    printf("\nEND OF KERNEL");
 }
-
-
-
