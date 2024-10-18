@@ -21,7 +21,3 @@ Run with `make run`.
 ## Source
 The source is in the `src` Folder
 
-## Community
-https://discord.gg/YXcXs5FNwu
-
-
